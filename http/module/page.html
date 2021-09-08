@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div href="/" class="titleBar">
+        <div href="/" class="title">
+            <div class="material-icons">home</div>
+        </div>
+        <div class="title">
+            [[title]]
+        </div>
+
+    </div>
+    <div class="content">
+
+        <div class="expand">
+            <button class="item button" onclick="expandClick(this)">
+                <div class="expandTitle">
+                    [[label]]
+                </div>
+                <div data-type="hidden" class="material-icons icon">expand_more</div>
+                <div style="display:none;" data-type="show" class="material-icons icon">expand_less</div>
+            </button>
+            <div class="expandContent" data-type="expand-content">
+                <div>
+                    [[content]]
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+<template>
+<!--Coloum-->
+<div class="coloums">[[content]]</div>
+<!--Row-->
+<div class="rows">[[content]]</div>
+<!--Text-->
+<div class="item text" tag="text">[[text]]</div>
+<!--Button-->
+<button class="item button" onclick="sendValue('[[name]]','[[value]]')">
+            <div class="material-icons icon">send</div>
+            <div>
+                [[label]]
+            </div>
+    </button>
+<!--Link-->
+<a class="item button" href="[[link]]">
+    <div class="material-icons icon">link</div>
+    <div>
+        [[label]]
+    </div>
+</a>
+<!--Item-->
+<div class="item value">
+    <div class="label">
+        [[label]]
+    </div>
+    <div class="content">
+        [[value]]
+    </div>
+</div>
+<!--Item Value-->
+<div class="reload" alt="[[name]]"></div>
+<!--Item Input Text-->
+<input [[disabled]] type="text" data-type="text" alt="[[name]]" value="[[value]]">
+<button class="icon [[disabled]]" onclick="sendTextClick(this)"><div class="material-icons icon">redo</div></button>
+<!--Item Input Number-->
+<input [[disabled]] type="number" data-type="number" alt="[[name]]" value="[[value]]" min="[[min]]" max="[[max]]">
+<button class="icon [[disabled]]" onclick="sendNumberClick(this)"><div class="material-icons">redo</div></button>
+<!--Item Input Slider-->
+<div id="slider[[name]]value"></div>
+<input [[disabled]] type="number" data-type="number" alt="[[name]]" value="[[value]]" min="[[min]]" max="[[max]]" onmousemove="sliderChange()">
+<button class="icon [[disabled]]" onclick="sendNumberClick(this)"><div class="material-icons">redo</div></button>
+<!--Item Input Checkbox-->
+<input [[disabled]] type="checkbox" data-type="checkbox" alt="[[name]]" checked="[[value]]">
+<button class="icon [[disabled]]" onclick="sendCheckboxClick(this)"><div class="material-icons">redo</div></button>
+<!--Item Input Date-->
+<input [[disabled]] data-type="hour" alt="[[name]]" class="input-date" type="number" placeholder="Hour" value="[[valueHour]]" min="-1" max="59">
+<input [[disabled]] data-type="min" alt="[[name]]" class="input-date" type="number" placeholder="Minute" value="[[valueMin]]" min="-1" max="59">
+<input [[disabled]] data-type="sec" alt="[[name]]" class="input-date" type="number" placeholder="Second" value="[[valueSec]]" min="-1" max="23">
+<input [[disabled]] data-type="day" alt="[[name]]" class="input-date" type="number" placeholder="Day" value="[[valueDay]]" min="-1" max="31">
+<input [[disabled]] data-type="mon" alt="[[name]]" class="input-date" type="number" placeholder="Month" value="[[valueMon]]" min="-1" max="12">
+<input [[disabled]] data-type="year" alt="[[name]]" class="input-date" type="number" placeholder="Year" value="[[valueYear]]" min="-1" max="9999">
+<button class="icon [[disabled]]" onclick="sendDateClick(this)"><div class="material-icons">redo</div></button>
+<!--Expand-->
+<div class="expand">
+    <button class="item button" onclick="expandClick(this)">
+        <div class="expandTitle">
+            [[label]]
+        </div>
+        <div data-type="hidden" class="material-icons icon">expand_more</div>
+        <div style="display:none;" data-type="show" class="material-icons icon">expand_less</div>
+    </button>
+    <div class="expandContent" data-type="expand-content">
+        <div>
+            [[content]]
+        </div>
+    </div>
+</div>
+<!--Toast-->
+<div class="toast" alt="[[name]]" value="[[value]]"></div>
+
+</template>

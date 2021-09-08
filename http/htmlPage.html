@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+            flex-direction: column;
+            font-family: Verdana, Helvetica, sans-serif;
+        }
+        
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        button {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+            text-align: left;
+        }
+        
+        button:hover {
+            transition: all 0.5s ease-in-out;
+            background: #DADADA;
+        }
+        
+        button:focus {
+            border-bottom: none !important;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+        
+        .icon {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .title {
+            box-shadow: 0px 1px 3px 3px #DADADA;
+            width: 100%;
+            padding-left: 10%;
+            padding-right: 10%;
+            min-height: 30px;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .content {
+            flex-direction: column;
+        }
+        
+        .item {
+            padding-left: 2%;
+            padding-right: 2%;
+            border-bottom: solid 1px #DADADA;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            min-height: 30px;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 300px;
+        }
+        
+        .value {
+            flex-direction: row;
+        }
+        
+        .value .label {
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .value .label {
+            flex-grow: 1;
+        }
+        
+        .value .content {
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .input-date {
+            width: 60px;
+        }
+        
+        .button {
+            flex-direction: row;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        input {
+            border: none;
+            border-bottom: solid 1px #DADADA;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus,
+        button:focus {
+            outline: none;
+            border-bottom: solid 1px #9c9c9c;
+        }
+        
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            /* Preferred icon size */
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+            /* Support for all WebKit browsers. */
+            -webkit-font-smoothing: antialiased;
+            /* Support for Safari and Chrome. */
+            text-rendering: optimizeLegibility;
+            /* Support for Firefox. */
+            -moz-osx-font-smoothing: grayscale;
+            /* Support for IE. */
+            font-feature-settings: 'liga';
+            padding: 2px;
+        }
+        
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .coloums {
+            flex-direction: row;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .rows {
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+        /*Toast*/
+        
+        .snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: rgba(51, 51, 51, 0.75);
+            color: #fff;
+            text-align: center;
+            border-radius: 30px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+        }
+        /* Show the snackbar when clicking on a button (class added with JavaScript) */
+        
+        .snackbar.show {
+            visibility: visible;
+            /* Show the snackbar */
+            /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        /* Animations to fade the snackbar in and out */
+        
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+        
+        @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">
+        [[title]]
+    </div>
+    <div class="content">
+        [[content]]
+    </div>
+    <div id="errToast" class="snackbar"></div>
+    <script>
+        // Text
+        function setText(name, value, border = null) {
+            var elements = document.getElementsByName(name)
+            elements.forEach(element => {
+                element.value = value;
+                if (!border) {
+                    element.style.borderBottomColor = "#DADADA";
+                } else {
+                    element.style.borderBottomColor = border;
+                }
+            });
+        }
+
+        function getText(name) {
+            return new Promise((resolve, reject) => {
+                var elements = document.getElementsByName(name);
+                resolve(input.value);
+
+            });
+        }
+
+        function sendText(name) {
+            getText(name).then((value) => {
+                sendValue(name, value).then((newValue) => {
+                    setText(name, newValue);
+                })
+            });
+        }
+        // Number
+        function sliderChange() {
+            var ranges = document.querySelectorAll('input[type=range]');
+            ranges.forEach(range => {
+                var valueBox = document.getElementById(range.id + "value");
+                valueBox.innerText = range.value;
+            });
+        }
+
+        function getNumber(name) {
+            return new Promise((resolve, reject) => {
+                var input = document.getElementById(name);
+                var val = parseFloat(input.value);
+                var min = parseFloat(input.min);
+                var max = parseFloat(input.max);
+                var ret = false;
+                if (val < min) {
+                    reject(min);
+
+                } else if (val > max) {
+                    console.log(`getNumber:val>min`)
+                    reject(max);
+                } else {
+                    resolve(val);
+                }
+            });
+        }
+
+        function sendNumber(name) {
+            getNumber(name).then((value) => {
+                sendValue(name, value).then((newValue) => {
+                    setText(name, newValue);
+
+                });
+            }, (err) => {
+                setText(name, err, "red");
+                showToast("errToast", `value out of range:${err}`);
+            });
+        }
+        // Checkbox
+        function getCheckbox(name) {
+            return new Promise((resolve, reject) => {
+                var input = document.getElementById(name);
+                resolve(input.checked);
+            });
+        }
+
+        function setCheckbox(name, value) {
+            var input = document.getElementById(name);
+            input.checked = value;
+        }
+
+        function sendCheckbox(name) {
+            getCheckbox(name).then((value) => {
+                sendValue(name, value).then((newValue) => {
+                    setCheckbox(name, newValue);
+                });
+            });
+        }
+        // Date
+        function getDate(name) {
+            return new Promise((resolve, reject) => {
+                var date = [
+                    (document.getElementById(name + "hour")),
+                    (document.getElementById(name + "min")),
+                    (document.getElementById(name + "sec")),
+                    (document.getElementById(name + "day")),
+                    (document.getElementById(name + "mon")),
+                    (document.getElementById(name + "year")),
+                ];
+                var ret = false;
+                date = date.map(dat => {
+                    var val = parseInt(dat.value);
+                    var min = parseInt(dat.min);
+                    var max = parseInt(dat.max);
+                    if (val < min) {
+                        val = min;
+                        dat.style.borderBottomColor = "red";
+                        ret = true;
+                    } else if (val > max) {
+                        val = max;
+                        dat.style.borderBottomColor = "red";
+                        ret = true;
+                    } else {
+                        dat.style.borderBottomColor = "#DADADA";
+                    }
+                    return val
+                });
+                if (ret) {
+                    reject(dat);
+                    return;
+                } else {
+                    var text = pad(date[0], 2) + ":" + pad(date[1], 2) + ":" + pad(date[2], 2) + " " + pad(date[3], 2) + "." + pad(date[4], 2) + "." + pad(date[5], 4);
+                    resolve(text);
+                    return;
+                }
+            });
+        }
+
+        function setDate(name, text) {
+            return new Promise((resovle, reject) => {
+                var date = new Date(text);
+                document.getElementById(name + "hour").value = date.getHours();
+                document.getElementById(name + "min").value = date.getMinutes();
+                document.getElementById(name + "sec").value = date.getSeconds;
+                document.getElementById(name + "day").value = date.getDate();
+                document.getElementById(name + "mon").value = date.getMonth();
+                document.getElementById(name + "year").value = date.getFullYear();
+            });
+        }
+
+        function sendDate(name) {
+            getDate(name).then((dateText) => {
+                sendValue(name, dateText).then((text) => {
+                    setDate(text);
+                });
+            }, (err) => {
+                showToast("errToast", `date out of range:${err}`);
+            });
+        }
+
+        function pad(num, size) {
+            if (!num) {
+                num = "";
+            }
+            var s = "0000" + num;
+            return s.substr(s.length - size);
+        }
+        // Http
+        function sendValue(name, value) {
+            return new Promise((resolve) => {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        resolve(xhttp.responseText);
+                    }
+                };
+                xhttp.open("POST", "rest/" + name, true);
+                xhttp.send(value);
+            });
+        }
+
+        function getValue(name) {
+            return new Promise((resolve) => {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        resolve(xhttp.responseText);
+                    }
+                };
+                xhttp.open("GET", "rest/" + name, true);
+                xhttp.send();
+            });
+
+        }
+
+        setInterval(() => {
+            var refreshs = document.querySelectorAll("[class=refresh]");
+            refreshs.forEach(refresh => {
+                getValue(refresh.name).then(newVal => {
+                    refresh.innerHTML = newVal;
+                });
+            });
+        }, 500);
+
+        // toast
+        function showToast(id, content) {
+            var toast = document.getElementById(id);
+            toast.className = "snackbar show";
+            toast.innerHTML = content;
+            setTimeout(function() {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+    </script>
+</body>
+
+
+
+<div class="coloums">
+    <div class="rows">
+        <div class="item">ewfwef<br>fwfwfwe<br>fwefwefew<br>fwefwefew<br>fwefwefew<br>fewfwf</div>
+        <div class="item">ewfwef</div>
+    </div>
+    <div class="rows">
+        <div class="item">ewfwef</div>
+        <div class="item value" tag="name,label,value">
+            <div class="label">
+                [[label]]
+            </div>
+            <div class="content">
+                [[value]]
+            </div>
+        </div>
+    </div>
+</div>
+<!--Text-->
+<div class="item text" tag="text">
+    [[text]]
+</div>
+<!--Button-->
+<button class="item button" tag="name,label" onclick="sendValue('[[name]]','[[value]]')">
+    <div class="material-icons icon">send</div>
+    <div>
+        [[label]]
+    </div>
+</button>
+<!--link-->
+<a class="item button" tag="name,label" href="testPage">
+    <div class="material-icons icon">link</div>
+    <div>
+        [[label]]
+    </div>
+</a>
+<!--Item Value-->
+<div class="item value">
+    <div class="label">
+        [[label]]
+    </div>
+    <div class="content">
+        [[value]]
+    </div>
+</div>
+<!--Item Value-->
+<div class="item value">
+    <div class="label">
+        [[label]]
+    </div>
+    <div class="content">
+        <div class="refresh" name="[[name]]"></div>
+    </div>
+</div>
+<!--Item Input Text-->
+<div class="item value" tag="name,label,value">
+    <div class="label">
+        [[label]]
+    </div>
+    <div class="content">
+        <input id="[[id]]" name="[[name]]" type="text">
+        <button class="icon" onclick="sendText([[name]])"><div class="material-icons icon">redo</div></button>
+    </div>
+</div>
+<!--Item Input Number-->
+<div class="item value" tag="name,label,value,min,max">
+    <div class="label">
+        [[label]]
+    </div>
+    <div class="content">
+        <input id="[[id]]" name="[[name]]" type="number" min="0" max="100">
+        <button class="icon" onclick="sendNumber('[[name]]')"><div class="material-icons">redo</div></button>
+    </div>
+</div>
+<!--Item Input Slider-->
+<div class="item value" tag="name,label,value,min,max">
+    <div class="label">
+        [[label]]
+    </div>
+    <div class="content">
+        <div id="slider[[name]]value">
+            32
+        </div>
+        <input id="[[id]]" name="[[name]]" type="range" min="0" max="100" onmousemove="sliderChange()">
+        <button class="icon" onclick="sendNumber('[[name]]')"><div class="material-icons">redo</div></button>
+    </div>
+</div>
+<!--Item Input Checkbox-->
+<div class="item value" tag="name,label,value">
+    <div class="label">
+        [[label]]
+    </div>
+    <div class="content">
+        <input id="[[id]]" name="[[name]]" type="checkbox">
+        <button class="icon" onclick="sendCheckbox('[[name]]')"><div class="material-icons">redo</div></button>
+    </div>
+</div>
+<!--Item Input Date-->
+<div class="item value" tag="name,label,value">
+    <div class="label">
+        [[label]]
+    </div>
+    <div class="content">
+        <input id="[[id]]hour" name="[[name]]" class="input-date" type="number" placeholder="Hour" value="[[value]]" min="-1" max="59">
+        <input id="[[id]]min" name="[[name]]" class="input-date" type="number" placeholder="Minute" value="[[value]]" min="-1" max="59">
+        <input id="[[id]]sec" name="[[name]]" class="input-date" type="number" placeholder="Second" value="[[value]]" min="-1" max="23">
+        <input id="[[id]]day" name="[[name]]" class="input-date" type="number" placeholder="Day" value="[[value]]" min="-1" max="31">
+        <input id="[[id]]mon" name="[[name]]" class="input-date" type="number" placeholder="Month" value="[[value]]" min="-1" max="12">
+        <input id="[[id]]year" name="[[name]]" class="input-date" type="number" placeholder="Year" value="[[value]]" min="-1" max="9999">
+        <button class="icon" onclick="sendDate('[[name]]')"><div class="material-icons">redo</div></button>
+    </div>
+</div>
