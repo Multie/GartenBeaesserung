@@ -124,10 +124,14 @@ input {
 }
 
 .expandContent {
-    max-height: 0;
     overflow: hidden;
-    transition: max-height 0.2s ease-out;
     margin-left: 5%;
+}
+.close {
+    display: none;
+}
+.open{
+    display: flex;
 }
 
 input:focus,

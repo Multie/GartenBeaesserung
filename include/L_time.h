@@ -179,7 +179,7 @@ void copyTimeToTime(tm *copy,tm *paste) {
 
 void SyncTime()
 {
-    connectWifi();
+    //connectWifi();
     configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
     getCurrentTime(&currentIrrigationData.Time);
     copyTimeToTime(&currentIrrigationData.Time, &currentIrrigationData.nextTimeSync);

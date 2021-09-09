@@ -28,9 +28,23 @@
                 <div data-type="hidden" class="material-icons icon">expand_more</div>
                 <div style="display:none;" data-type="show" class="material-icons icon">expand_less</div>
             </button>
-            <div class="expandContent" data-type="expand-content">
+            <div class="expandContent close" data-type="expand-content">
                 <div>
                     [[content]]
+                    <div class="expand">
+                        <button class="item button" onclick="expandClick(this)">
+                            <div class="expandTitle">
+                                [[label]]
+                            </div>
+                            <div data-type="hidden" class="material-icons icon">expand_more</div>
+                            <div style="display:none;" data-type="show" class="material-icons icon">expand_less</div>
+                        </button>
+                        <div class="expandContent close" data-type="expand-content">
+                            <div>
+                                [[content]]
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

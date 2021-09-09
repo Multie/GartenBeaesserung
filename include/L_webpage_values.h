@@ -67,10 +67,12 @@ String htmlToast = F(R"###(
 <div class="toast" alt="[[name]]" value="[[value]]"></div>
 )###");
 // Expandable label, content
-String htmlExpandable = F(R"###(
-<div class="expand"><button class="item button" onclick="expandClick(this)"><div class="expandTitle">[[label]]</div><div data-type="hidden" class="material-icons icon">expand_more</div><div style="display:none;" data-type="show" class="material-icons icon">expand_less</div></button><div class="expandContent" data-type="expand-content"><div>[[content]]</div></div></div>
+String htmlExpandableStart = F(R"###(
+<div class="expand"><button class="item button" onclick="expandClick(this)"><div class="expandTitle">[[label]]</div><div data-type="hidden" class="material-icons icon">expand_more</div><div style="display:none;" data-type="show" class="material-icons icon">expand_less</div></button><div class="expandContent" data-type="expand-content close"><div>
 )###");
-
+String htmlExpandableEnd = F(R"###(
+</div></div></div>
+)###");
 // Page: title, content
 String htmlPageStart = F(R"###(
 <!DOCTYPE html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link href="styles.min.css" rel="stylesheet"></head><body><div class="title">[[title]]</div><div class="content">

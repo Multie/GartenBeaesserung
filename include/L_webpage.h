@@ -1,3 +1,4 @@
+
 #ifndef L_WEBPAGE_H
 #define L_WEBPAGE_H
 
@@ -15,6 +16,9 @@
 #ifndef WebServer_VAR
 AsyncWebServer server(80);
 #endif
+
+#define htmlstart true
+#define htmlend false
 
 
 // Colum: content
@@ -149,58 +153,76 @@ String addhtmlToast(String name, String value) {
     return html;
 }
 // Expandable label, content
-String addhtmlExpandable(String label, String content) {
-    String html = htmlExpandable;
+String addhtmlExpandable(String label, bool start=true) {
+    if (start) {
+    String html = htmlExpandableStart;
     html.replace("[[label]]",label);
-    html.replace("[[content]]", content);
     return html;
+    }
+    else {
+        return htmlExpandableEnd;
+    }
 }
 // Page: title
-String startPage(String title) {
-    String html = htmlPageStart;
+String addPage(String title,bool start = true) {
+    if (start) {
+ String html = htmlPageStart;
     html.replace("[[title]]",title);
     return html;
-}
-String endPage() {
-    return htmlPageEnd;
+    }
+    else {
+      return htmlPageEnd;  
+    }
 }
 
 void handelRoot(AsyncWebServerRequest *request)
 {
     AsyncResponseStream *response = request->beginResponseStream("text/html");
-    response->print(startPage("Bewässerung"));
+    response->print(addPage("Bewässerung"));
 
     String colums = "";
     colums += (addhtmlRow(addhtmlLink("Tank","/tank")+ addhtmlLink("Ventile","/ventile")));
     colums += (addhtmlRow(addhtmlLink("Bodenfeuchte","/bodenfeuchte")+ addhtmlLink("Config","/config")));
     response->print(addhtmlColumn(colums));
 
-
-
-    response->print(endPage());
+    response->print(addPage("",false));
     request->send(response);
 }
 
 void handelConfig(AsyncWebServerRequest *request)
 {
     AsyncResponseStream *response = request->beginResponseStream("text/html");
-    response->print(startPage("Bewässerung - Config"));
+    response->print(addPage("Bewässerung - Config",htmlstart));
     
     response->print(addhtmlText("Tank"));
     response->print(addhtmlItem("Pin",addhtmlItemInputNumber(getRestElementByEndpoint("config/Tank/Pin"),true)));
-    response->print(addhtmlText("Bodenfeuchte"));
-    String content = "";
+    response->print(addhtmlExpandable("Bodenfeuchte",htmlstart));
     for (int a =0; a < 10;a++) {
-        content = "";
-        content += (addhtmlItem("Id",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/Id"))));
-        content += (addhtmlItem("Min",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/Min"))));
-        content += (addhtmlItem("Max",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/Max"))));
-        content += (addhtmlItem("ActiveTime",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/ActiveTime"))));
-        content += (addhtmlItem("InactiveTime",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/InactiveTime"))));
-        response->print(addhtmlExpandable("Sensor " + String(a),content));
+        response->print(addhtmlExpandable("Sensor " + String(a),htmlstart));
+        response->print(addhtmlItem("Id",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/Id"))));
+        response->print(addhtmlItem("Min",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/Min"))));
+        response->print(addhtmlItem("Max",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/Max"))));
+        response->print(addhtmlItem("ActiveTime",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/ActiveTime"))));
+        response->print(addhtmlItem("InactiveTime",addhtmlItemInputNumber(getRestElementByEndpoint("config/Soil/"+String(a)+"/InactiveTime"))));
+        response->print(addhtmlExpandable("",htmlend));
     }
-    content = "";
-    response->print(endPage());
+    response->print(addhtmlExpandable("",htmlend));
+
+    response->print(addhtmlExpandable("Ventile",htmlstart));
+    for (int a =0; a < 9;a++) {
+        response->print(addhtmlExpandable("Ventil " + String(a),htmlstart));
+        response->print(addhtmlItem("Pin",addhtmlItemInputNumber(getRestElementByEndpoint("config/Valves/"+String(a)+"/Pin"))));
+        response->print(addhtmlItem("Init",addhtmlItemInputNumber(getRestElementByEndpoint("config/Valves/"+String(a)+"/Init"))));
+        response->print(addhtmlItem("Invert",addhtmlItemInputNumber(getRestElementByEndpoint("config/Valves/"+String(a)+"/Invert"))));
+       response->print(addhtmlExpandable("",htmlend));
+    }
+    response->print(addhtmlExpandable("",htmlend));
+
+
+
+
+
+    response->print(addPage("",htmlend));
     request->send(response);
 }
 

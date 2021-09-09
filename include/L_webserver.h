@@ -55,8 +55,9 @@ DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
     Debug("Webserver","Setup","complete");
 }
 
-void LoopWebserver() {
 
+void LoopWebserver() {
+  
 }
 
 #endif

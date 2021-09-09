@@ -203,12 +203,14 @@ function expandClick(button) {
     var up = getChildenWithDataType(button, "div", "show");
     var down = getChildenWithDataType(button, "div", "hidden");
     if (div) {
-        if (!div.style.maxHeight) {
-            div.style.maxHeight = div.firstElementChild.clientHeight + "px";
+        if (div.className.includes("close")) {
+            div.className = div.className.replace("close","open");
+            //div.style.maxHeight = "10000px"//div.firstElementChild.clientHeight + "px";
             up.style.display = "";
             down.style.display = "none";
         } else {
-            div.style.maxHeight = null;
+            //div.style.maxHeight = null;
+            div.className = div.className.replace("open","close");
             up.style.display = "none";
             down.style.display = "";
         }
